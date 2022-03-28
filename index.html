@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Setting up a solid GitHub CI/CD</title>
+
+    <meta name="author" content="Hakim El Hattab" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="assets/favicon.ico" />
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" id="theme" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- INTRO -->
+            <section data-background-image="assets/background-intro.svg" data-background-color="#000000"
+                data-background-size="100%" data-state="intro">
+                <h2>
+                    <span style="color: #ff233e">Setting up</span>
+                    <span style="color: #8bc53f">a solid</span>
+                    <span style="color: #2aabe2">Github CI/CD</span>
+                </h2>
+            </section>
+            <!-- ABOUT ME -->
+            <section data-background-image="assets/background.svg" data-background-color="#000000"
+                data-background-size="100%">
+                <h2>Hello, nice to meet you 👋</h2>
+                <ul>
+                    <li>I'm a PHP developer</li>
+                    <li>Employed at <span style="color: #dc1f26"><strong>Baldwin</strong></span></li>
+                    <li>Long time Drupal developer</li>
+                    <li>
+                        Questions / Want to talk?
+                        <ul>
+                            <li>
+                                <a href="https://www.linkedin.com/in/robin-ingelbrecht/"
+                                    target="_blank">https://www.linkedin.com/in/robin-ingelbrecht/</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/robiningelbrecht"
+                                    target="_blank">https://github.com/robiningelbrecht</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- SESSION OUTLINE -->
+            <section data-background-image="assets/background.svg" data-background-color="#000000"
+                data-background-size="100%">
+                <h2>Session outline</h2>
+                <ul>
+                    <li>Short introduction to the code</li>
+                    <li>Setting up a repository</li>
+                    <li>Configuring a CI/CD workflow</li>
+                    <li>Configuring a build & deploy workflow</li>
+                    <li>Hungry for more? 🍔</li>
+                </ul>
+            </section>
+            <!-- THANK YOU - PLATINUM SPONSORS -->
+            <section data-background-image="assets/background-platinum-sponsors.svg" data-background-color="#000000"
+                data-background-size="100%">
+            </section>
+            <!-- THANK YOU - OTHER SPONSORS -->
+            <section data-background-image="assets/background-other-sponsors.svg" data-background-color="#000000"
+                data-background-size="100%"></section>
+            <!-- SOCIALS -->
+            <section data-background-image="assets/background-socials.svg" data-background-color="#000000"
+                data-background-size="100%"></section>
+        </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: "slide", // none/fade/slide/convex/concave/zoom
+            backgroundTransition: "slide",
+            plugins: [RevealZoom, RevealHighlight],
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+::selection {
+    color: #fff;
+    background: rgb(8, 84, 122);
+    text-shadow: none; }
+
+.reveal.slide {
+    background-size: 100%;
+    background-image: url(assets/background.svg);
+}
+
+.reveal {
+    font-family: 'Miriam Libre', sans-serif;
+}
+
+.reveal-viewport h2{
+    color: #012837;
+}
+
+.reveal section,
+.reveal section h2{
+    color: #012837;
+}
+
+.reveal-viewport.intro h2  {
+    background-color: #ffffff;
+    opacity: 0.9;
+    text-transform: none;
+}
