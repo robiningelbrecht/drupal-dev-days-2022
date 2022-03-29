@@ -16,12 +16,11 @@
 
     <link rel="stylesheet" href="dist/reset.css" />
     <link rel="stylesheet" href="dist/reveal.css" />
-    <link rel="stylesheet" href="dist/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="dist/theme/drupal-dev-days.css" id="theme" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
@@ -31,8 +30,7 @@
     <div class="reveal">
         <div class="slides">
             <!-- INTRO -->
-            <section data-background-image="assets/background-intro.svg" data-background-color="#000000"
-                data-background-size="100%" data-state="intro">
+            <section data-background-image="assets/background-intro.svg" data-background-size="100%" data-state="intro">
                 <h2>
                     <span style="color: #ff233e">Setting up</span>
                     <span style="color: #8bc53f">a solid</span>
@@ -40,8 +38,7 @@
                 </h2>
             </section>
             <!-- ABOUT ME -->
-            <section data-background-image="assets/background.svg" data-background-color="#000000"
-                data-background-size="100%">
+            <section data-background-image="assets/background.svg" data-background-size="100%">
                 <h2>Hello, nice to meet you 👋</h2>
                 <ul>
                     <li>I'm a PHP developer</li>
@@ -63,10 +60,10 @@
                 </ul>
             </section>
             <!-- SESSION OUTLINE -->
-            <section data-background-image="assets/background.svg" data-background-color="#000000"
-                data-background-size="100%">
+            <section data-background-image="assets/background.svg" data-background-size="100%">
                 <h2>Session outline</h2>
                 <ul>
+                    <li>Introduction to GitHub actions</li>
                     <li>Short introduction to the code</li>
                     <li>Setting up a repository</li>
                     <li>Configuring a CI/CD workflow</li>
@@ -74,16 +71,145 @@
                     <li>Hungry for more? 🍔</li>
                 </ul>
             </section>
+            <!-- DEMO REPOSITORY -->
+            <section data-background-image="assets/background.svg" data-background-size="100%">
+                <h2>Demo repository</h2>
+                <p>A fully working example is available at <a
+                        href="https://github.com/robiningelbrecht/continuous-integration-example"
+                        target="_blank">https://github.com/robiningelbrecht/continuous-integration-example</a></p>
+            </section>
+            <!-- CI / CD -->
+            <section>
+                <section data-background-image="assets/background.svg" data-background-size="100%">
+                    <h2>CI/CD, what's up with that?</h2>
+                    <p><small>Acronyms for</small>
+                    <ul>
+                        <li>Continuous integration</li>
+                        <li>Continuous delivery / deployment</li>
+                    </ul>
+                    </p>
+
+                </section>
+                <!-- CI -->
+                <section data-background-image="assets/background.svg" data-background-size="100%">
+                    <h2>Continuous integration</h2>
+
+                    <blockquote
+                        cite="https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment">
+                        DevOps best practice where developers <u>frequently merge</u> code changes
+                        into a central repository where <u>automated builds and tests</u> run.
+                    </blockquote>
+                </section>
+                <!-- CD -->
+                <section data-background-image="assets/background.svg" data-background-size="100%">
+                    <h2>Continuous delivery</h2>
+
+                    <blockquote
+                        cite="https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment">
+                        An <u>automated release</u>process where you can deploy your application any time by clicking a
+                        button.
+                    </blockquote>
+                </section>
+            </section>
+            <!-- GITHUB ACTIONS -->
+            <section data-background-image="assets/background.svg" data-background-size="100%">
+                <!-- GITHUB ACTIONS - INTRO -->
+                <section>
+                    <h2>GitHub actions</h2>
+                    <p>
+                        A CI/CD platform that allows you to
+                    </p>
+                    <ul>
+                        <li>Automate your tests</li>
+                        <li>Automate your builds</li>
+                        <li>Automate your deployment pipeline</li>
+                    </ul>
+                    <p>
+                        <small>Source: <a
+                                href="https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions"
+                                target="_blank">https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions</a>
+                        </small>
+                    </p>
+                </section>
+                <!-- GITHUB ACTIONS - WORKFLOWS -->
+                <section>
+                    <h2>Workflows</h2>
+                    <ul>
+                        <li>Configurable automated process (YAML)</li>
+                        <li>Triggered by an event, manually, or at a defined schedule</li>
+                        <li>Will run one or more jobs</li>
+                    </ul>
+                </section>
+                <!-- GITHUB ACTIONS - RUNNERS -->
+                <section>
+                    <h2>Runners</h2>
+                    <p>A runner is a server that runs your workflows when they're triggered</p>
+                    <ul>
+                        <li>Ubuntu Linux</li>
+                        <li>Microsoft Windows</li>
+                        <li>macOS</li>
+                        <li>Self-hosted</li>
+                    </ul>
+                    <p><small>https://docs.github.com/en/actions/hosting-your-own-runners</small></p>
+                </section>
+                <!-- GITHUB ACTIONS - EVENTS -->
+                <section>
+                    <h2>Events</h2>
+                    <p>An event is a specific activity in a repository that triggers a workflow run</p>
+                    <ul>
+                        <li>PR is created</li>
+                        <li>Issue was openend</li>
+                        <li>Commit was pushed</li>
+                    </ul>
+                    <p>
+                        <small>
+                            <a href="https://docs.github.com/en/actions/reference/events-that-trigger-workflows"
+                                target="_blank">https://docs.github.com/en/actions/reference/events-that-trigger-workflows</a>
+                        </small>
+                    </p>
+                </section>
+                <!-- GITHUB ACTIONS - JOBS -->
+                <section>
+                    <h2>Jobs</h2>
+                    <p>Contains a set of steps that execute on the same runner. Each step is either a</p>
+                    <ul>
+                        <li>shell script</li>
+                        <li>a pre-defined action</li>
+                    </ul>
+                    <p>Steps are executed in order and are dependent on each other</p>
+                </section>
+                    <!-- GITHUB ACTIONS - EXAMPLE -->
+                    <section>
+                        <h2>Example</h2>
+                        <div class="small">
+                            <pre>
+                                <code data-line-numbers data-trim data-noescape>
+                                    name: learn-github-actions
+                                    on: [push] # Event
+                                    jobs:
+                                      install-dependencies:
+                                        runs-on: ubuntu-latest # Runner
+                                          steps: # Actions
+                                            - name: Setup PHP 8.1 with Xdebug 3.x # Pre-defined action
+                                              uses: shivammathur/setup-php@v2
+                                              with:
+                                              php-version: '8.1'
+                                              coverage: xdebug
+
+                                            - name: Install dependencies # Shell script
+                                              run: composer install --prefer-dist                    
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+            </section>
             <!-- THANK YOU - PLATINUM SPONSORS -->
-            <section data-background-image="assets/background-platinum-sponsors.svg" data-background-color="#000000"
-                data-background-size="100%">
+            <section data-background-image="assets/background-platinum-sponsors.svg" data-background-size="100%">
             </section>
             <!-- THANK YOU - OTHER SPONSORS -->
-            <section data-background-image="assets/background-other-sponsors.svg" data-background-color="#000000"
-                data-background-size="100%"></section>
+            <section data-background-image="assets/background-other-sponsors.svg" data-background-size="100%"></section>
             <!-- SOCIALS -->
-            <section data-background-image="assets/background-socials.svg" data-background-color="#000000"
-                data-background-size="100%"></section>
+            <section data-background-image="assets/background-socials.svg" data-background-size="100%"></section>
         </div>
     </div>
 
