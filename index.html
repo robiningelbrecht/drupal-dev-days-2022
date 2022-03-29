@@ -64,7 +64,7 @@
                 <h2>Session outline</h2>
                 <ul>
                     <li>Introduction to GitHub actions</li>
-                    <li>Short introduction to the code</li>
+                    <li>Have a quick glance at the code</li>
                     <li>Setting up a repository</li>
                     <li>Configuring a CI/CD workflow</li>
                     <li>Configuring a build & deploy workflow</li>
@@ -80,6 +80,7 @@
             </section>
             <!-- CI / CD -->
             <section>
+                <!-- CI / CD - INTRO -->
                 <section data-background-image="assets/background.svg" data-background-size="100%">
                     <h2>CI/CD, what's up with that?</h2>
                     <p><small>Acronyms for</small>
@@ -125,7 +126,7 @@
                         <li>Automate your deployment pipeline</li>
                     </ul>
                     <p>
-                        <small>Source: <a
+                        <small><a
                                 href="https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions"
                                 target="_blank">https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions</a>
                         </small>
@@ -151,7 +152,8 @@
                         <li>Self-hosted</li>
                     </ul>
                     <p><small> <a href="https://docs.github.com/en/actions/hosting-your-own-runners"
-                        target="_blank">https://docs.github.com/en/actions/hosting-your-own-runners</a></small></p>
+                                target="_blank">https://docs.github.com/en/actions/hosting-your-own-runners</a></small>
+                    </p>
                 </section>
                 <!-- GITHUB ACTIONS - EVENTS -->
                 <section>
@@ -179,30 +181,131 @@
                     </ul>
                     <p>Steps are executed in order and are dependent on each other</p>
                 </section>
-                    <!-- GITHUB ACTIONS - EXAMPLE -->
-                    <section>
-                        <h2>Example</h2>
-                        <div class="small">
-                            <pre>
-                                <code data-line-numbers data-trim data-noescape>
-                                    name: learn-github-actions
-                                    on: [push] # Event
-                                    jobs:
-                                      install-dependencies:
-                                        runs-on: ubuntu-latest # Runner
-                                          steps: # Actions
-                                            - name: Setup PHP 8.1 with Xdebug 3.x # Pre-defined action
-                                              uses: shivammathur/setup-php@v2
-                                              with:
-                                              php-version: '8.1'
-                                              coverage: xdebug
+                <!-- GITHUB ACTIONS - EXAMPLE -->
+                <section>
+                    <h2>Example</h2>
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                name: learn-github-actions
+                                on: [push] # Event
+                                jobs:
+                                    install-dependencies:
+                                    runs-on: ubuntu-latest # Runner
+                                        steps: # Actions
+                                        - name: Setup PHP 8.1 with Xdebug 3.x # Pre-defined action
+                                            uses: shivammathur/setup-php@v2
+                                            with:
+                                            php-version: '8.1'
+                                            coverage: xdebug
 
-                                            - name: Install dependencies # Shell script
-                                              run: composer install --prefer-dist                    
-                                </code>
+                                        - name: Install dependencies # Shell script
+                                            run: composer install --prefer-dist                    
+                            </code>
                             </pre>
-                        </div>
-                    </section>
+                    </div>
+                </section>
+            </section>
+            <!-- THE CODE -->
+            <section data-background-image="assets/background.svg" data-background-size="100%">
+                <!-- THE CODE - INTRO -->
+                <section>
+                    <h2>Pizza anyone? 🍕</h2>
+                    <p>Small and easy testable app to order pizza</p>
+                    <ul>
+                        <li>Decorator pattern</li>
+                        <li>Builder Pattern</li>
+                        <li>Factory Pattern</li>
+                    </ul>
+                    <p>
+                        <small>
+                            <a
+                                href="https://github.com/robiningelbrecht/continuous-integration-example/tree/master/src">https://github.com/robiningelbrecht/continuous-integration-example/tree/master/src</a>
+                        </small>
+                    </p>
+                </section>
+                 <!-- THE CODE - DECORATOR PATTERN -->
+                <section>
+                    <h2>Decorator pattern</h2>
+                    <div class="small">
+                        <pre>
+                            <code class="php" data-line-numbers data-trim data-noescape>
+                                $pizza = new ExtraCheese(new Pepperoni(new BasicPizza(Size::MEDIUM, Crust::THIN)));
+
+                                $pizza->getPrice(); 
+                                // [
+                                //   "amount": "1575",
+                                //   "currency": "EUR"  
+                                // ]
+                                        
+                                $pizza->getDescription();
+                                // Medium pizza, Thin crust, Tomato sauce, Cheese, Extra cheese, Pepperoni
+                            </code>
+                        </pre>
+                    </div>
+                    <blockquote>
+                        <small>
+                            Using decorators you can wrap objects countless number of times since both target objects and 
+                            decorators follow the same interface. The resulting object will get a stacking behavior of all wrappers.
+                        </small>
+                    </blockquote>
+                </section>
+                <!-- THE CODE - BUILDER PATTERN -->
+                <section>
+                    <h2>Builder pattern</h2>
+                    <div class="small">
+                        <pre>
+                            <code class="php" data-line-numbers data-trim data-noescape>
+                                $pizza = PizzaBuilder::fromSizeAndCrust(Size::MEDIUM, Crust::THIN)
+                                  ->withToppings(
+                                      Topping::EXTRA_CHEESE, 
+                                      Topping::PEPPERONI
+                                    )
+                                  ->build();
+
+                                  $pizza->getPrice(); 
+                                  // [
+                                  //   "amount": "1575",
+                                  //   "currency": "EUR"  
+                                  // ]
+                                          
+                                  $pizza->getDescription();
+                                  // Medium pizza, Thin crust, Tomato sauce, Cheese, Extra cheese, Pepperoni                                 
+                            </code>
+                        </pre>
+                    </div>
+                    <blockquote>
+                        <small>
+                            Builder is a creational design pattern, which allows constructing complex objects step by step.
+                        </small>
+                    </blockquote>
+                </section>
+                <!-- THE CODE - FACTORY PATTERN -->
+                <section>
+                    <h2>Factory pattern</h2>
+                    <div class="small">
+                        <pre>
+                            <code class="php" data-line-numbers data-trim data-noescape>
+                                  $pizza = PizzaFactory::pepperoni(Size::MEDIUM, Crust::THIN)
+
+                                  $pizza->getPrice(); 
+                                  // [
+                                  //   "amount": "1575",
+                                  //   "currency": "EUR"  
+                                  // ]
+                                          
+                                  $pizza->getDescription();
+                                  // Medium pizza, Thin crust, Tomato sauce, Cheese, Extra cheese, Pepperoni                                 
+                            </code>
+                        </pre>
+                    </div>
+                    <blockquote>
+                        <small>
+                            (Abstract) Factory is a creational design pattern, which solves the problem of creating 
+                            entire product families without specifying their concrete classes.
+                        </small>
+                    </blockquote>
+                </section>                
             </section>
             <!-- THANK YOU - PLATINUM SPONSORS -->
             <section data-background-image="assets/background-platinum-sponsors.svg" data-background-size="100%">
