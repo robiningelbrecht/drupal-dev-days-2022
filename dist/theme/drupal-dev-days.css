@@ -5,7 +5,7 @@
   * GLOBAL STYLES
   *********************************************/
  :root {
-   --r-background-color: #000;
+   --r-background-color: #fff;
    --r-main-font: 'Miriam Libre', sans-serif;
    --r-main-font-size: 42px;
    --r-main-color: #012837;
@@ -95,6 +95,16 @@
    text-shadow: var(--r-heading-text-shadow);
    word-wrap: break-word;
  }
+
+ .reveal .slide-background-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: 50% bottom;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(../../assets/background.png);
+}
  
  .reveal h1 {
    font-size: var(--r-heading1-size);

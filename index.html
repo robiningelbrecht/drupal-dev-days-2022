@@ -30,7 +30,7 @@
     <div class="reveal">
         <div class="slides">
             <!-- INTRO -->
-            <section data-background-image="assets/background-intro.svg" data-background-size="100%" data-state="intro">
+            <section data-background-image="assets/background-intro.svg" data-background-color="#000" data-background-position="50% 50%" data-state="intro">
                 <h2>
                     <span style="color: #ff233e">Setting up</span>
                     <span style="color: #8bc53f">a solid</span>
@@ -38,7 +38,7 @@
                 </h2>
             </section>
             <!-- ABOUT ME -->
-            <section data-background-image="assets/background.svg" data-background-size="100%">
+            <section>
                 <h2>Hello, nice to meet you 👋</h2>
                 <ul>
                     <li>I'm a PHP developer</li>
@@ -60,7 +60,7 @@
                 </ul>
             </section>
             <!-- SESSION OUTLINE -->
-            <section data-background-image="assets/background.svg" data-background-size="100%">
+            <section>
                 <h2>Session outline</h2>
                 <ul>
                     <li>Introduction to GitHub actions</li>
@@ -72,7 +72,7 @@
                 </ul>
             </section>
             <!-- DEMO REPOSITORY -->
-            <section data-background-image="assets/background.svg" data-background-size="100%">
+            <section>
                 <h2>Demo repository</h2>
                 <p>A fully working example is available at <a
                         href="https://github.com/robiningelbrecht/continuous-integration-example"
@@ -81,7 +81,7 @@
             <!-- CI / CD -->
             <section>
                 <!-- CI / CD - INTRO -->
-                <section data-background-image="assets/background.svg" data-background-size="100%">
+                <section>
                     <h2>CI/CD, what's up with that?</h2>
                     <p><small>Acronyms for</small>
                     <ul>
@@ -92,7 +92,7 @@
 
                 </section>
                 <!-- CI -->
-                <section data-background-image="assets/background.svg" data-background-size="100%">
+                <section>
                     <h2>Continuous integration</h2>
 
                     <blockquote
@@ -102,7 +102,7 @@
                     </blockquote>
                 </section>
                 <!-- CD -->
-                <section data-background-image="assets/background.svg" data-background-size="100%">
+                <section>
                     <h2>Continuous delivery</h2>
 
                     <blockquote
@@ -113,7 +113,7 @@
                 </section>
             </section>
             <!-- GITHUB ACTIONS -->
-            <section data-background-image="assets/background.svg" data-background-size="100%">
+            <section>
                 <!-- GITHUB ACTIONS - INTRO -->
                 <section>
                     <h2>GitHub actions</h2>
@@ -207,7 +207,7 @@
                 </section>
             </section>
             <!-- THE CODE -->
-            <section data-background-image="assets/background.svg" data-background-size="100%">
+            <section>
                 <!-- THE CODE - INTRO -->
                 <section>
                     <h2>Pizza anyone? 🍕</h2>
@@ -224,7 +224,7 @@
                         </small>
                     </p>
                 </section>
-                 <!-- THE CODE - DECORATOR PATTERN -->
+                <!-- THE CODE - DECORATOR PATTERN -->
                 <section>
                     <h2>Decorator pattern</h2>
                     <div class="small">
@@ -245,8 +245,10 @@
                     </div>
                     <blockquote>
                         <small>
-                            Using decorators you can wrap objects countless number of times since both target objects and 
-                            decorators follow the same interface. The resulting object will get a stacking behavior of all wrappers.
+                            Using decorators you can wrap objects countless number of times since both target objects
+                            and
+                            decorators follow the same interface. The resulting object will get a stacking behavior of
+                            all wrappers.
                         </small>
                     </blockquote>
                 </section>
@@ -276,7 +278,8 @@
                     </div>
                     <blockquote>
                         <small>
-                            Builder is a creational design pattern, which allows constructing complex objects step by step.
+                            Builder is a creational design pattern, which allows constructing complex objects step by
+                            step.
                         </small>
                     </blockquote>
                 </section>
@@ -301,19 +304,65 @@
                     </div>
                     <blockquote>
                         <small>
-                            (Abstract) Factory is a creational design pattern, which solves the problem of creating 
+                            (Abstract) Factory is a creational design pattern, which solves the problem of creating
                             entire product families without specifying their concrete classes.
                         </small>
                     </blockquote>
-                </section>                
+                </section>
+            </section>
+            <!-- REPOSITORY SETTINGS -->
+            <section>
+                <!-- REPOSITORY SETTINGS - INTRO -->
+                <section>
+                    <h2>Configure your repository</h2>
+
+                    <ul>
+                        <li>Set up a default branch</li>
+                        <li>Add branch protection rules</li>
+                        <li>Configure issue & PR templates (optional)</li>
+                    </ul>
+                </section>
+                <!-- REPOSITORY SETTINGS - DEFAULT BRANCH -->
+                <section>
+                    <h2>The default branch</h2>
+                    <p>
+                        You can set the default branch to whatever you want, but usually "main" or "master" are used.
+                    </p>
+                    <img src="assets/default-branch.png" alt="Default branch" />
+                    <p>
+                        <small>https://github.com/username/repository/settings/branches</small>
+                    </p>
+                </section>
+                <!-- REPOSITORY SETTINGS - BRANCH PROTECTION RULES -->
+                <section>
+                    <h2>Branch protection rules</h2>
+                    <p><small>Important to ensure code quality and have a solid CI</small></p>
+                    <ul>
+                        <li>Disable force pushing</li>
+                        <li>Prevent branches from being deleted</li>
+                        <li>Rrequire status checks before merging</li>
+                    </ul>
+                </section>
+                  <!-- REPOSITORY SETTINGS - BRANCH PROTECTION RULES -->
+                <section>
+                    <h2>Branch protection rules</h2>
+                    <img src="assets/branch-protection-rules.png" alt="Branch protection rules" />
+                    <p>
+                        <small> All other options should stay unchecked... for now 😎</small>
+                    </p>
+                </section>
+                     <!-- REPOSITORY SETTINGS - ISSUE AND PR TEMPLATES -->
+                     <section>
+                        <h2>Issue & PR templates</h2>
+                        <p>TODO</p>
+                    </section>
             </section>
             <!-- THANK YOU - PLATINUM SPONSORS -->
-            <section data-background-image="assets/background-platinum-sponsors.svg" data-background-size="100%">
-            </section>
+            <section data-background-image="assets/background-platinum-sponsors.png"></section>
             <!-- THANK YOU - OTHER SPONSORS -->
-            <section data-background-image="assets/background-other-sponsors.svg" data-background-size="100%"></section>
+            <section data-background-image="assets/background-other-sponsors.png"></section>
             <!-- SOCIALS -->
-            <section data-background-image="assets/background-socials.svg" data-background-size="100%"></section>
+            <section data-background-image="assets/background-socials.png"></section>
         </div>
     </div>
 
@@ -327,7 +376,7 @@
             history: true,
             center: true,
             transition: "slide", // none/fade/slide/convex/concave/zoom
-            backgroundTransition: "slide",
+            backgroundTransition: "none",
             plugins: [RevealZoom, RevealHighlight],
         });
     </script>
