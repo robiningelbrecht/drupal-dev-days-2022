@@ -354,8 +354,40 @@
                      <!-- REPOSITORY SETTINGS - ISSUE AND PR TEMPLATES -->
                      <section>
                         <h2>Issue & PR templates</h2>
-                        <p>TODO</p>
+                        <img src="assets/issue-templates.png" alt="Issue templates" />
+                        <p>Standardize the information for issues and pull requests in your repository</p>
                     </section>
+                     <!-- REPOSITORY SETTINGS - ISSUE AND PR TEMPLATES -->
+                    <section>
+                        <h2>Issue & PR templates</h2>
+                        <img src="assets/new-issue.png" alt="New issue" />
+                    </section>
+            </section>
+             <!-- CI WORKFLOW -->
+            <section>
+                 <!-- CI WORKFLOW - INTRO -->
+                <section>
+                    <h2>CI Workflow</h2>
+                    <p>Two jobs that <i>should</i> ensure code quality</p>
+                    <ul>
+                        <li>Test suite</li>
+                        <li>PHPStan & PHPcs</li>
+                    </ul>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                name: CI
+                                on:
+                                  pull_request:
+                                  workflow_dispatch:                             
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- CI WORKFLOW - TEST SUITE JOB -->
+                <section>
+                    <h2>Test suite</h2>
+                </section>
             </section>
             <!-- THANK YOU - PLATINUM SPONSORS -->
             <section data-background-image="assets/background-platinum-sponsors.png"></section>
@@ -365,7 +397,7 @@
             <section data-background-image="assets/background-socials.png"></section>
         </div>
     </div>
-
+    <!-- TODO: badges & Explain deploy vs release (feature flags) -->
     <script src="dist/reveal.js"></script>
     <script src="plugin/zoom/zoom.js"></script>
     <script src="plugin/highlight/highlight.js"></script>
