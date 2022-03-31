@@ -1,6 +1,4 @@
- @import url(./fonts/source-sans-pro/source-sans-pro.css);
-
- 
+ @import url(./fonts/source-sans-pro/source-sans-pro.css); 
  /*********************************************
   * GLOBAL STYLES
   *********************************************/
@@ -105,6 +103,10 @@
     background-size: 100%;
     background-image: url(../../assets/background.png);
 }
+
+.reveal-viewport.no-background .reveal .slide-background-content{
+  background-image: none;
+}
  
  .reveal h1 {
    font-size: var(--r-heading1-size);
@@ -112,6 +114,10 @@
  
  .reveal h2 {
    font-size: var(--r-heading2-size);
+ }
+
+ .reveal.has-dark-background h2 {
+    color: #fff;
  }
 
  .reveal-viewport.intro  .reveal h2  {
