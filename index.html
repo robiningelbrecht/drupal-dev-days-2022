@@ -409,7 +409,7 @@
                 <section>
                     <h2>1st job: Test suite</h2>
                     <p>Install PHP and Xdebug</p>
-                    <div class="small">
+                    <div>
                         <pre>
                             <code class="yaml" data-line-numbers data-trim data-noescape>
                                 # https://github.com/marketplace/actions/setup-php-action
@@ -428,7 +428,7 @@
                 <section>
                     <h2>Test suite</h2>
                     <p>Pull in the code and install dependencies</p>
-                    <div class="small">
+                    <div>
                         <pre>
                             <code class="yaml" data-line-numbers data-trim data-noescape>
                                 # https://github.com/marketplace/actions/checkout
@@ -455,9 +455,12 @@
                         </pre>
                     </div>
                     <ul>
-                        <li><strong>--fail-on-incomplete</strong><small>Forces PHPUnit to fail on incomplete tests</small></li>
-                        <li><strong>--log-junit junit.xml</strong><small>Generates XML file to publish the test results</small></li>
-                        <li><strong>--coverage-clover clover.xml</strong><small>Generates an XML file to check the test coverage</small></li>
+                        <li><strong>--fail-on-incomplete</strong><small>Forces PHPUnit to fail on incomplete
+                                tests</small></li>
+                        <li><strong>--log-junit junit.xml</strong><small>Generates XML file to publish the test
+                                results</small></li>
+                        <li><strong>--coverage-clover clover.xml</strong><small>Generates an XML file to check the test
+                                coverage</small></li>
                     </ul>
                 </section>
                 <!-- CI WORKFLOW - TEST SUITE VISUALIZE -->
@@ -476,18 +479,19 @@
                             </code>
                         </pre>
                     </div>
-                    <img src="assets/unit-test-results.png" width="550" alt="Uni test results"/>
+                    <img src="assets/unit-test-results.png" width="550" alt="Uni test results" />
                     <small><a href="https://github.com/marketplace/actions/publish-unit-test-results"
-                        target="_blank">https://github.com/marketplace/actions/publish-unit-test-results</a></small>
+                            target="_blank">https://github.com/marketplace/actions/publish-unit-test-results</a></small>
                 </section>
                 <!-- CI WORKFLOW - TEST COVARGE CODECOV.IO -->
                 <section>
                     <h2>Test coverage insights</h2>
                     <p>
-                        with <a href="https://app.codecov.io/gh/robiningelbrecht/continuous-integration-example" target="_blank">codecov.io</a>
+                        with <a href="https://app.codecov.io/gh/robiningelbrecht/continuous-integration-example"
+                            target="_blank">codecov.io</a>
                         and generated <strong>clover.xml</strong> report
                     </p>
-                    <div class="small">
+                    <div>
                         <pre>
                             <code class="yaml" data-line-numbers data-trim data-noescape>
                                 # https://github.com/marketplace/actions/codecov
@@ -501,14 +505,14 @@
                         </pre>
                     </div>
                     <small><a href="https://github.com/marketplace/actions/codecov"
-                        target="_blank">https://github.com/marketplace/actions/codecov</a></small>
-                </section> 
+                            target="_blank">https://github.com/marketplace/actions/codecov</a></small>
+                </section>
                 <!-- CI WORKFLOW - TEST COVARGE CODECOV.IO -->
                 <section>
                     <h2>Test coverage insights</h2>
-                   
-                    <img src="assets/codecov-results.png" width="550" alt="Codecov results"/>
-                </section>                     
+
+                    <img src="assets/codecov-results.png" width="550" alt="Codecov results" />
+                </section>
                 <!-- CI WORKFLOW - MINIMUM TEST COVARGE -->
                 <section>
                     <h2>Minimum test coverage</h2>
@@ -529,9 +533,9 @@
                         </pre>
                     </div>
                     <small><a href="https://github.com/robiningelbrecht/phpunit-coverage-check"
-                        target="_blank">https://github.com/robiningelbrecht/phpunit-coverage-check</a></small>
+                            target="_blank">https://github.com/robiningelbrecht/phpunit-coverage-check</a></small>
                 </section>
-                 <!-- CI WORKFLOW - CI MATRIX -->
+                <!-- CI WORKFLOW - CI MATRIX -->
                 <section>
                     <h2>🔥PRO tip🔥</h2>
                     <p>
@@ -554,31 +558,106 @@
                                       coverage: xdebug
                             </code>
                         </pre>
-                    </div>                    
-                </section>   
-                 <!-- CI WORKFLOW - CI MATRIX -->
-                 <section>
+                    </div>
+                </section>
+                <!-- CI WORKFLOW - CI MATRIX -->
+                <section>
                     <h2>🔥PRO tip🔥</h2>
                     <p>
                         This should result in a workflow run for all possible combinations in the matrix
                     </p>
 
-                    <img src="assets/ci-matrix.png" width="400" alt="CI matrix"/>          
-                </section>  
-                <!-- CI WORKFLOW - PHPSTAN & PHPCS -->
+                    <img src="assets/ci-matrix.png" width="400" alt="CI matrix" />
+                </section>
+                <!-- CI WORKFLOW - PHPSTAN / PHPCS -->
                 <section>
                     <h2>2nd job: <small>Static code analysis & coding standards</small></h2>
                     <ul>
                         <li>
-                            PHPStan 
+                            PHPStan
                             <small>PHPStan focuses on finding errors in your code without actually running it</small>
                         </li>
                         <li>
                             PHP Coding Standards Fixer
-                            <small>The PHP Coding Standards Fixer (PHP CS Fixer) tool fixes your code to follow standards</small>
+                            <small>The PHP Coding Standards Fixer (PHP CS Fixer) tool fixes your code to follow
+                                standards</small>
                         </li>
                     </ul>
-                </section>                                                                           
+                </section>
+                <!-- CI WORKFLOW - PHPSTAN / PHPCS PHP & DEPENDENCIES-->
+                <section>
+                    <h2>Install PHP & dependencies</h2>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                # https://github.com/marketplace/actions/setup-php-action
+                                - name: Setup PHP 8.1
+                                  uses: shivammathur/setup-php@v2
+                                  with:
+                                    php-version: '8.1'
+                              
+                                # https://github.com/marketplace/actions/checkout
+                                - name: Checkout code
+                                  uses: actions/checkout@v2
+                                  
+                                - name: Install dependencies
+                                  run: composer install --prefer-dist
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- CI WORKFLOW - RUN PHPSTAN & PHPCS -->
+                <section>
+                    <h2><small>Run static code analysis & coding standards</small></h2>
+                    <p>Run static code analyser</p>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                - name: Run PHPStan
+                                  run: vendor/bin/phpstan analyse
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://phpstan.org/" target="_blank">https://phpstan.org/</a></small>
+
+                    <p>Check coding standards</p>
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                - name: Run PHPcs fixer dry-run
+                                  run: vendor/bin/php-cs-fixer fix --dry-run --stop-on-violation --config=.php-cs-fixer.dist.php
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer"
+                            target="_blank">https://github.com/FriendsOfPHP/PHP-CS-Fixer</a></small>
+                </section>
+                <!-- CI WORKFLOW - UPDATE REPOSITORY SETTINGS -->
+                <section>
+                    <h2>Update repository settings</h2>
+                    <p>
+                        <small>
+                            Tighten branch protection rules by adding extra required status checks<br />
+                            Both jobs in CI workflow need to succeed before the PR can be merged.
+                        </small>
+                    </p>
+
+                    <img src="assets/protected-branch-settings.png" / width="500" alt="Protected branch settings">
+                </section>
+                <!-- CI WORKFLOW - FULL EXAMPLE -->
+                <section>
+                    <h2>Putting it all together</h2>
+                    <a href="https://github.com/robiningelbrecht/continuous-integration-example/actions/workflows/ci.yml"
+                        target="_blank">https://github.com/robiningelbrecht/continuous-integration-example/actions/workflows/ci.yml</a>
+
+                    <a href="https://github.com/robiningelbrecht/continuous-integration-example/blob/master/.github/workflows/ci.yml"
+                        target="_blank">https://github.com/robiningelbrecht/continuous-integration-example/blob/master/.github/workflows/ci.yml</a>
+                </section>
+                <!-- CI WORKFLOW - PRs -->
+                <section>
+                    <h2>Example pull requests</h2>
+
+                </section>
             </section>
             <!-- BUILD & DEPLOY WORKFLOW -->
             <section>
