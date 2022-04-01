@@ -686,6 +686,94 @@
                     <h2>Build & deploy Workflow</h2>
                     <img src="assets/rocket.png" alt="Rocket" width="250" />
                 </section>
+                <!-- BUILD & DEPLOY WORKFLOW - INTRO -->
+                <section>
+                    <h2>Build & deploy Workflow</h2>
+                    <p>Contains two jobs</p>
+                    <ul>
+                        <li>Create a build</li>
+                        <li>Deploying build to a remote server</li>
+                    </ul>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                name: Build & deploy
+                                on:
+                                  workflow_dispatch:                             
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - CREATE BUILD -->
+                <section>
+                    <h2>1s job: Create build</h2>
+                    <p>Only run when initialized with proper branches</p>
+
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                if: github.ref_name == 'master' || github.ref_name == 'development'
+                                name: Create build ${{ github.run_number }} for ${{ github.ref_name }}
+                                runs-on: ubuntu-latest                      
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - CREATE BUILD -->
+                <section>
+                    <h2>Install PHP & dependencies</h2>
+
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers="12" data-trim data-noescape>
+                                # https://github.com/marketplace/actions/checkout
+                                - name: Checkout code
+                                  uses: actions/checkout@v2
+                          
+                                # https://github.com/marketplace/actions/setup-php-action
+                                - name: Setup PHP 8.1
+                                  uses: shivammathur/setup-php@v2
+                                  with:
+                                    php-version: '8.1'
+                          
+                                - name: Install dependencies
+                                  run: composer install --prefer-dist --no-dev                                           
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - CREATE ARTIFACT -->
+                <section>
+                    <h2>Create atrifact</h2>
+
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                # https://github.com/marketplace/actions/upload-a-build-artifact
+                                - name: Create artifact
+                                  uses: actions/upload-artifact@v3
+                                  with:
+                                    name: release-${{ github.run_number }}
+                                    path: |
+                                      src/**
+                                      vendor/**                                 
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://github.com/marketplace/actions/upload-a-build-artifact"
+                            target="_blank">https://github.com/marketplace/actions/upload-a-build-artifact</a></small>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - CHECK ARTIFACT -->
+                <section>
+                    <h2>Verify created artifacts</h2>
+                    <p>
+                        Can be downloaded and verified from the workflow summary page.
+                    </p>
+                    <img src="assets/artifacts.png" width="500" alt="Artifacts" />
+                    <small><a
+                            href="https://github.com/robiningelbrecht/continuous-integration-example/actions/runs/2030536472"
+                            target="_blank">https://github.com/robiningelbrecht/continuous-integration-example/actions/runs/2030536472</a></small>
+                </section>
             </section>
             <!-- HUNGRY FOR MORE -->
             <section>
