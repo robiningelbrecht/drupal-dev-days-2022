@@ -774,6 +774,161 @@
                             href="https://github.com/robiningelbrecht/continuous-integration-example/actions/runs/2030536472"
                             target="_blank">https://github.com/robiningelbrecht/continuous-integration-example/actions/runs/2030536472</a></small>
                 </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY INTRO -->
+                <section>
+                    <h2>2nd job: Deploy to remote server</h2>
+                    <p>
+                        Deploy the build we created in the previous step,
+                        but before we can do this, we first need to configure
+                        <a href="https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment"
+                            target="_blank">environments</a>.
+                    </p>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - ENVIRONMENTS -->
+                <section>
+                    <h2>Configure environments</h2>
+                    <p>
+                    <ul>
+                        <li>Master</li>
+                        <li>Development</li>
+                    </ul>
+                    </p>
+
+                    <p><small>https://github.com/username/repository/settings/environments</small></p>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - ENVIRONMENTS -->
+                <section>
+                    <h2>Configure environments</h2>
+                    <div style="display: flex; align-items: center;">
+                        <img src="assets/environment-settings.png" alt="Environment settings" width="450">
+
+                        <ul>
+                            <li>Enforce that the correct branch is deployed</li>
+                            <li>Secrets can be used during deploy in workflows</li>
+                        </ul>
+                    </div>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY CONFIGURE JOB -->
+                <section>
+                    <h2>Configure the Job</h2>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                needs: build
+                                environment:
+                                  name: ${{ github.ref_name }}
+                                  url: https://${{ github.ref_name }}.env                           
+                            </code>
+                        </pre>
+                    </div>
+                    <p><small><code>${{ github.ref_name }}</code> contains branch or tag.</small></p>
+                    <ul>
+                        <li>Reference build step</li>
+                        <li>Reference environment to deploy
+                            <ul class="small">
+                                <li>Use the secrets configured environment</li>
+                                <li>Validate that the correct branch is deployed</li>
+                                <li>Indicate if a PR has been deployed (or not)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY CONCURRENCY -->
+                <section>
+                    <h2>Setting concurrency</h2>
+                    <p>
+                        Make sure only one deploy (per environment) at a time can be run.
+                    </p>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                concurrency: ${{ github.ref_name }}                        
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY DOWNLOAD ARTIFACT -->
+                <section>
+                    <h2>Download atrifact</h2>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                # https://github.com/marketplace/actions/download-a-build-artifact
+                                - name: Download artifact
+                                  uses: actions/download-artifact@v3
+                                  with:
+                                    name: release-${{ github.run_number }}                    
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://github.com/marketplace/actions/download-a-build-artifact"
+                            target="_blank">https://github.com/marketplace/actions/download-a-build-artifact</a></small>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY RSYNC -->
+                <section>
+                    <h2>Rsync build to server</h2>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                # https://github.com/marketplace/actions/rsync-deployments-action
+                                - name: Rsync build to server
+                                  uses: burnett01/rsync-deployments@5.2
+                                  with:
+                                    switches: -avzr --delete
+                                    path: .
+                                    remote_path: /var/www/release-${{ github.run_number }}/
+                                    remote_host: ${{ secrets.SSH_HOST }}
+                                    remote_user: ${{ secrets.SSH_USERNAME }}
+                                    remote_key: ${{ secrets.SSH_KEY }}                 
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://github.com/marketplace/actions/rsync-deployments-action"
+                            target="_blank">https://github.com/marketplace/actions/rsync-deployments-action</a></small>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY RUN SCRIPT -->
+                <section>
+                    <h2>Run deploy script</h2>
+                    <div class="small">
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                # https://github.com/marketplace/actions/ssh-remote-commands
+                                - name: Run remote SSH commands
+                                  uses: appleboy/ssh-action@master
+                                  with:
+                                    host: ${{ secrets.HOST }}
+                                    username: ${{ secrets.USERNAME }}
+                                    key: ${{ secrets.KEY }}
+                                    port: ${{ secrets.PORT }}
+                                    script: |
+                                      RELEASE_DIRECTORY=/var/www/release-${{ github.run_number }}
+                                      CURRENT_DIRECTORY=/var/www/app
+                                      
+                                      # Manage symlinks.
+                                      rm -r "${CURRENT_DIRECTORY}"
+                                      ls -s "${RELEASE_DIRECTORY}" "${CURRENT_DIRECTORY}"
+                                      
+                                      # Run database migrations
+                                      drush updb -y
+                                      drush cim -y
+                                      
+                                      # Install updated crontab
+                                      crontab ${RELEASE_DIRECTORY}/crontab
+                                      
+                                      # Rebuild cache
+                                      drush cr -y         
+                            </code>
+                        </pre>
+                    </div>
+                    <small><a href="https://github.com/marketplace/actions/ssh-remote-commands"
+                            target="_blank">https://github.com/marketplace/actions/ssh-remote-commands</a></small>
+                </section>
+                <!-- BUILD & DEPLOY WORKFLOW - DEPLOY COMPLETE -->
+                <section>
+                    <h2>We've shipped new features</h2>
+                    At this point new features and/or bug fixes are deployed to your remote server.
+                    You should be good to go to repeat this cycle over and over and over again 😌
+                </section>
             </section>
             <!-- HUNGRY FOR MORE -->
             <section>
@@ -781,6 +936,129 @@
                 <section>
                     <h2>Hungry for more?</h2>
                     <img src="assets/hungry.png" alt="Hungry" width="250" />
+                </section>
+                <!-- HUNGRY FOR MORE - INTEGRATION TESTS -->
+                <section>
+                    <h2>Integration tests</h2>
+
+                    <blockquote>Integration testing is the phase in software testing in which
+                        individual software modules arecombined and tested as a group.</blockquote>
+
+                    <small><a href="https://codeception.com/" target="_blank">https://codeception.com/</a></small>
+                </section>
+                <!-- HUNGRY FOR MORE -  END TO END TESTS -->
+                <section>
+                    <h2>End-to-end tests</h2>
+
+                    <blockquote>End-to-end testing is a technique that tests the entire software product
+                        from beginning to end to ensure the application flow behaves as expected.</blockquote>
+
+                    <small><a href="https://codecept.io/" target="_blank">https://codecept.io/</a></small>
+                </section>
+                <!-- HUNGRY FOR MORE -  VISUAL REGRESSION TESTS -->
+                <section>
+                    <h2>Visual regression tests</h2>
+
+                    <blockquote>A visual regression test checks what the user will see after any code changes
+                        have been executed by comparing screenshots taken before and after deploys.</blockquote>
+
+                    <small><a href="https://github.com/garris/BackstopJS"
+                            target="_blank">https://github.com/garris/BackstopJS</a></small>
+                </section>
+                <!-- HUNGRY FOR MORE -  AUTO DEPLOY -->
+                <section>
+                    <h2>Continuous deploy</h2>
+                    <div>
+                        <pre>
+                            <code class="yaml" data-line-numbers data-trim data-noescape>
+                                on:
+                                  push:
+                                    branches:
+                                      - master
+                                      - develop              
+                            </code>
+                        </pre>
+                    </div>
+                    <small>
+                        <strong>Note: </strong> Continuous deploy != Continuous releasing (feature flags)
+                    </small>
+                </section>
+                <!-- HUNGRY FOR MORE -  SPEED UP YOUR TEST SUITE -->
+                <section>
+                    <h2>Speed up your test suite</h2>
+                    <ul>
+                        <li>Use <a href="https://github.com/paratestphp/paratest" target="_blank">Paratest</a> to run
+                            test in parallel</li>
+                        <li><a href="https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows"
+                                target="_blank">Cache</a> your vendor dependencies</li>
+                        <li>Use an in-memory SQLite database for tests that hit your database</li>
+                        <li>Disable Xdebug, if you don't need test coverage</li>
+                    </ul>
+                </section>
+                <!-- HUNGRY FOR MORE -  COMPOSITE ACTIONS -->
+                <section>
+                    <h2>Composite actions</h2>
+                    <p>
+                        Composite actions can be used to split workflows into smaller, reusable components.
+                    </p>
+                    <p>
+                        <small>
+                            <a href="https://docs.github.com/en/actions/creating-actions/creating-a-composite-action"
+                                target="_blanks">This blogpost</a>
+                            does a perfect job at explaining how to define and use them.
+                            Big up to the author James Wallis 👌
+                        </small>
+                    </p>
+                </section>
+                <!-- HUNGRY FOR MORE -  BADGES -->
+                <section>
+                    <h2>Fancy badges</h2>
+                    <p>You can add several badges on the readme page of your repository to indicate the status of your
+                        project</p>
+                    <ul>
+                        <li>
+                            <div style="display: flex;">
+                                <span>CI status</span>
+                                <a
+                                    href="https://github.com/robiningelbrecht/continuous-integration-example/actions/workflows/ci.yml"><img
+                                        src="https://github.com/robiningelbrecht/continuous-integration-example/actions/workflows/ci.yml/badge.svg"
+                                        alt="CI/CD"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex;">
+                                <span>Test coverage </span>
+                                <a href="https://codecov.io/gh/robiningelbrecht/continuous-integration-example"><img
+                                        src="https://codecov.io/gh/robiningelbrecht/continuous-integration-example/branch/master/graph/badge.svg?token=9FEMHIZTZ0"
+                                        alt="codecov.io"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex;">
+                                <span>License</span> 
+                                <a
+                                    href="https://github.com/robiningelbrecht/continuous-integration-example/blob/master/LICENSE"><img
+                                        src="https://img.shields.io/github/license/robiningelbrecht/continuous-integration-example?color=428f7e&logo=open%20source%20initiative&logoColor=white"
+                                        alt="License"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex;">
+                                <span>PHPStan</span>
+                                <a href="https://phpstan.org/"><img
+                                        src="https://img.shields.io/badge/PHPStan-level%209-succes.svg?logo=php&logoColor=white&color=31C652"
+                                        alt="PHPStan Enabled"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="display: flex;">
+                                <span>PHP version support</span>
+                                <a href="https://php.net/"><img
+                                        src="https://img.shields.io/packagist/php-v/robiningelbrecht/continuous-integration-example/dev-master?color=777bb3&logo=php&logoColor=white"
+                                        alt="PHP"></a>
+                            </div>
+                        </li>
+                    </ul>
                 </section>
             </section>
             <!-- THANK YOU - PLATINUM SPONSORS -->
@@ -791,7 +1069,6 @@
             <section data-background-image="assets/background-socials.png"></section>
         </div>
     </div>
-    <!-- TODO: badges & Explain deploy vs release (feature flags) -->
     <script src="dist/reveal.js"></script>
     <script src="plugin/zoom/zoom.js"></script>
     <script src="plugin/highlight/highlight.js"></script>
