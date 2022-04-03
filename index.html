@@ -196,16 +196,16 @@
                                 name: learn-github-actions
                                 on: [push] # Event
                                 jobs:
-                                    install-dependencies:
+                                    name: install-dependencies
                                     runs-on: ubuntu-latest # Runner
                                         steps: # Actions
-                                        - name: Setup PHP 8.1 with Xdebug 3.x # Pre-defined action
+                                          - name: Setup PHP 8.1 with Xdebug 3.x # Pre-defined action
                                             uses: shivammathur/setup-php@v2
                                             with:
                                             php-version: '8.1'
                                             coverage: xdebug
 
-                                        - name: Install dependencies # Shell script
+                                          - name: Install dependencies # Shell script
                                             run: composer install --prefer-dist                    
                             </code>
                             </pre>
@@ -1035,7 +1035,7 @@
                         </li>
                         <li>
                             <div style="display: flex;">
-                                <span>License</span> 
+                                <span>License</span>
                                 <a
                                     href="https://github.com/robiningelbrecht/continuous-integration-example/blob/master/LICENSE"><img
                                         src="https://img.shields.io/github/license/robiningelbrecht/continuous-integration-example?color=428f7e&logo=open%20source%20initiative&logoColor=white"
